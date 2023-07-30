@@ -1,3 +1,10 @@
+## 关注公众号
+
+> 关注公众号获取代码以及最新教程和文章，也可以联系作者，获取帮助
+
+![](https://i.imgtg.com/2023/06/21/OW9Rup.png)
+
+
 ## nodejs
 
 - [面试官：说说 Node 文件查找的优先级以及 Require 方法的文件查找策略?](https://github.com/linwu-hi/code-interview/issues/169)
