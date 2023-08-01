@@ -1,0 +1,219 @@
+# 类型
+
+
+TypeScript提供了JavaScript的所有基本数据类型，如：`number`、`string`、`boolean`等。它还增加了额外的类型，比如`any`、`unknown`、`never`、`void`等。
+
+## number
+
+在TypeScript中，所有的数字都是浮点数。这些数字的类型是`number`。下面是一些例子：
+
+```typescript
+let decimal: number = 6; // 十进制
+let hex: number = 0xf00d; // 十六进制
+let binary: number = 0b1010; // 二进制
+let octal: number = 0o744; // 八进制
+```
+
+## string
+
+`string`类型表示文本数据。你可以使用单引号（'）或双引号（"）定义字符串，也可以使用反引号（`）定义模板字符串：
+
+```typescript
+let color: string = "blue";
+color = 'red';
+
+let fullName: string = `Bob Bobbington`;
+let age: number = 37;
+let sentence: string = `Hello, my name is ${ fullName }. I'll be ${ age + 1 } years old next month.`;
+```
+
+## boolean
+
+`boolean`类型有两个值：`true`和`false`：
+
+```typescript
+let isDone: boolean = false;
+```
+
+## Array
+
+在TypeScript中，数组类型有两种表达方式。一种是在元素类型后面加上 `[]`，表示由此类型元素组成的一个数组。另一种方式是使用数组泛型，Array<元素类型>：
+
+```typescript
+let list: number[] = [1, 2, 3];
+// 或
+let list: Array<number> = [1, 2, 3];
+```
+
+## Tuple
+
+元组类型允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。比如，你可以定义一对值分别为 `string`和`number`的元组：
+
+```typescript
+let x: [string, number];
+x = ['hello', 10]; // OK
+```
+
+以上是TypeScript的一些基本类型。在接下来的对话中，我们可以进一步讨论其他的TypeScript类型，比如枚举（`enum`）、`null`、`undefined`、`never`、`void`以及对象类型。
+
+
+## Enum
+
+Enum是一种特殊的类型，它可以更容易地处理一组有名字的常量。在TypeScript中，enum的默认起始值是0，然后每个成员的值都会依次增加。你也可以手动为enum的成员指定值：
+
+```typescript
+enum Color {Red, Green, Blue}
+let c: Color = Color.Green;
+
+// 手动指定成员的数值
+enum Color {Red = 1, Green = 2, Blue = 4}
+let c: Color = Color.Green;
+```
+
+## Null and Undefined
+
+在TypeScript中，`undefined`和`null`各自有自己的类型，分别是`undefined`和`null`。默认情况下，它们是所有类型的子类型。这意味着你可以把 `null`和`undefined`赋值给 `number`类型的变量。
+
+然而，当你指定了`--strictNullChecks`标记，`null`和`undefined`只能赋值给`void`和它们各自的类型：
+
+```typescript
+let u: undefined = undefined;
+let n: null = null;
+```
+
+## Any
+
+当你不确定一个变量应该是什么类型的时候，你可能需要用到 `any` 类型。`any`类型的变量允许你对它进行任何操作，它就像是TypeScript类型系统的一个逃生窗口：
+
+```typescript
+let notSure: any = 4;
+notSure = "maybe a string instead";
+notSure = false; // okay, definitely a boolean
+```
+
+## Unknown
+
+`unknown`类型是TypeScript 3.0中引入的一种新类型，它是`any`类型对应的安全类型。`unknown`类型的变量只能被赋值给`any`类型和`unknown`类型本身：
+
+```typescript
+let value: unknown;
+
+value = true;             // OK
+value = 42;               // OK
+value = "Hello World";    // OK
+value = [];               // OK
+value = {};               // OK
+```
+
+## Never
+
+`never`类型表示的是那些永不存在的值的类型。例如，`never`类型是那些总是会抛出异常或者根本就不会有返回值的函数表达式或箭头函数表达式的返回值类型：
+
+```typescript
+function error(message: string): never {
+    throw new Error(message);
+}
+```
+
+## void
+
+在TypeScript中，`void`类型用于表示没有返回值的函数的返回类型。在JavaScript中，当一个函数没有返回任何值时，它会隐式地返回`undefined`。`void`类型就是用来表达这种情况的：
+
+```typescript
+function warnUser(): void {
+    console.log("This is my warning message");
+}
+```
+
+在这个例子中，`warnUser`函数没有返回任何值，所以它的返回类型是`void`。
+
+需要注意的是，在TypeScript中，你可以声明一个`void`类型的变量，但是你只能为它赋予`undefined`和`null`（在非严格null检查模式下）：
+
+```typescript
+let unusable: void = undefined;
+```
+
+通常情况下，我们不会这样使用`void`类型，因为除了`undefined`和`null`之外，你不能将任何值赋给`void`类型的变量。
+
+
+## 联合类型（Union Types）
+
+TypeScript联合类型是一种将多种类型组合到一起的方式，表示一个值可以是多种类型之一。你可以使用管道符（|）来分隔每个类型。这可以让你在不确定一个值是什么类型的时候，为它选择多个可能的类型。
+
+例如，假设我们有一个函数，这个函数的参数可以是`number`类型或者`string`类型：
+
+```typescript
+function display(input: string | number) {
+    console.log(input);
+}
+```
+
+在上面的函数中，我们声明了`input`参数可以是`string`类型或者`number`类型。你可以传递一个`string`类型或者`number`类型的值给`display`函数，而TypeScript编译器不会报错：
+
+```typescript
+display(1); // OK
+display("Hello"); // OK
+```
+
+你也可以将联合类型用于变量和属性。例如：
+
+```typescript
+let variable: string | number;
+
+variable = "Hello"; // OK
+variable = 1; // OK
+```
+
+在上面的代码中，我们声明了`variable`可以是`string`类型或者`number`类型。然后我们可以安全地将一个字符串或者数字赋值给`variable`。
+
+联合类型在TypeScript中非常常用，因为它们可以帮助你编写更灵活的代码。
+
+
+
+## 交叉类型（Intersection Types）
+
+交叉类型是将多个类型合并为一个类型。这让我们可以把现有的多种类型叠加到一起获得所需的能力。它被定义为 `Type1 & Type2 & Type3 & ... & TypeN`。它包含了所需的所有类型的成员。
+
+```typescript
+interface Part1 { 
+  a: string;
+}
+
+interface Part2 { 
+  b: number;
+}
+
+type Combined = Part1 & Part2;
+
+let obj: Combined = { 
+  a: 'hello',
+  b: 42,
+};
+```
+
+## 类型别名（Type Aliases）
+
+类型别名是给一个类型起个新名字。类型别名有时和接口很相似，但可以作用于原始值，联合类型，交叉类型等任何我们需要手写的地方。
+
+```typescript
+type MyBool = true | false;
+type StringOrNumber = string | number;
+```
+
+## 字符串字面量类型（String Literal Types）
+
+字符串字面量类型允许你指定字符串必须的固定值。在实践中，这种类型常与联合类型、类型别名和类型保护结合使用。
+
+```typescript
+type Easing = "ease-in" | "ease-out" | "ease-in-out";
+
+class UIElement {
+    animate(dx: number, dy: number, easing: Easing) {
+        // ...
+    }
+}
+
+let button = new UIElement();
+button.animate(0, 0, "ease-in"); // OK
+button.animate(0, 0, "uneasy");  // Error: "uneasy" is not allowed here
+```

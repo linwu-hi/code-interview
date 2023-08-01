@@ -1,0 +1,126 @@
+# 函数
+
+
+TypeScript提供了丰富的函数类型定义方式，可以对函数参数、返回值进行类型注解，从而提供了更为强大的类型检查。
+
+## 函数声明
+
+在TypeScript中，你可以在函数声明中对函数的参数和返回值进行类型注解。以下是一个例子：
+
+```typescript
+function add(x: number, y: number): number {
+    return x + y;
+}
+```
+
+在这个例子中，我们定义了一个`add`函数，它接受两个参数`x`和`y`，这两个参数都是`number`类型，函数的返回值也是`number`类型。
+
+如果你尝试调用这个函数并传入一个非数字类型的参数，TypeScript编译器会报错：
+
+```typescript
+add("Hello", 1); // Error: Argument of type '"Hello"' is not assignable to parameter of type 'number'.
+```
+
+## 函数表达式
+
+在JavaScript中，函数不仅可以通过函数声明的方式定义，还可以通过函数表达式定义。在TypeScript中，函数表达式也可以使用类型注解：
+
+```typescript
+let myAdd: (x: number, y: number) => number = function(x: number, y: number): number {
+    return x + y;
+};
+```
+
+在上面的例子中，我们首先定义了`myAdd`变量的类型为一个函数类型`(x: number, y: number) => number`，然后将一个匿名函数赋值给`myAdd`。这个匿名函数的参数`x`和`y`的类型是`number`，返回值的类型也是`number`。
+
+## 可选参数和默认参数
+
+TypeScript支持可选参数和默认参数。你可以使用`?`来标记可选参数，或者使用`= `来指定参数的默认值：
+
+```typescript
+function buildName(firstName: string, lastName?: string) {
+    if (lastName)
+        return firstName + " " + lastName;
+    else
+        return firstName;
+}
+
+let result1 = buildName("Bob");  // works correctly now
+let result2 = buildName("Bob", "Adams");  // ah, just right
+```
+
+在上面的例子中，`lastName`是一个可选参数。你可以不传这个参数调用`buildName`函数。
+
+```typescript
+function buildName(firstName: string, lastName = "Smith") {
+    return firstName + " " + lastName;
+}
+
+let result1 = buildName("Bob");  // returns "Bob Smith"
+let result2 = buildName("Bob", "Adams");  // returns "Bob Adams"
+```
+
+在上面的例子中，`lastName`有一个默认值"Smith"。如果你不传这个参数调用`buildName`函数，`lastName`的值将是"Smith"。
+
+## 剩余参数（Rest Parameters）
+
+当你不知道要操作的函数会有多少个参数时，TypeScript提供了剩余参数的概念。与JavaScript一样，你可以使用三个
+
+点`...`来定义剩余参数：
+
+```typescript
+function buildName(firstName: string, ...restOfName: string[]) {
+    return firstName + " " + restOfName.join(" ");
+}
+
+let employeeName = buildName("Joseph", "Samuel", "Lucas", "MacKinzie");
+```
+
+在上面的例子中，`restOfName`就是剩余参数，它可以接受任意数量的参数。
+
+## this和箭头函数
+
+箭头函数可以保留函数创建时的 `this`值，而不是调用时的值。在TypeScript中，你可以使用箭头函数来确保`this`的值：
+
+```typescript
+let deck = {
+    suits: ["hearts", "spades", "clubs", "diamonds"],
+    cards: Array(52),
+    createCardPicker: function() {
+        return () => {
+            let pickedCard = Math.floor(Math.random() * 52);
+            let pickedSuit = Math.floor(pickedCard / 13);
+    
+            return {suit: this.suits[pickedSuit], card: pickedCard % 13};
+        }
+    }
+}
+
+let cardPicker = deck.createCardPicker();
+let pickedCard = cardPicker();
+
+alert("card: " + pickedCard.card + " of " + pickedCard.suit);
+```
+
+在上面的例子中，`createCardPicker`函数返回一个箭头函数，这个箭头函数可以访问创建时的`this`值。
+
+## 重载
+
+在JavaScript中，根据传入不同的参数调用同一个函数，返回不同类型的值是常见的情况。TypeScript通过为同一个函数提供多个函数类型定义来实现这个功能：
+
+```typescript
+function reverse(x: number): number;
+function reverse(x: string): string;
+function reverse(x: number | string): number | string {
+    if (typeof x === 'number') {
+        return Number(x.toString().split('').reverse().join(''));
+    } else if (typeof x === 'string') {
+        return x.split('').reverse().join('');
+    }
+}
+
+reverse(12345);  // returns 54321
+reverse('hello');  // returns 'olleh'
+```
+
+在上面的例子中，我们定义了两个重载：一个是接受`number`类型的参数，另一个是接受`string`类型的参数。然后我们在实现函数中处理了这两种情况。

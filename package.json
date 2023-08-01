@@ -1,0 +1,24 @@
+{
+  "name": "code-interview",
+  "version": "1.0.0",
+  "description": "> 关注公众号获取代码以及最新教程和文章，也可以联系作者，获取帮助",
+  "main": "config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linwu-hi/code-interview.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/linwu-hi/code-interview/issues"
+  },
+  "homepage": "https://github.com/linwu-hi/code-interview#readme",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "markdown-pdf": "^11.0.0",
+    "sanitize-filename": "^1.6.3"
+  }
+}
