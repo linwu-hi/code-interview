@@ -2,7 +2,7 @@
 
 ![image](https://github.com/linwu-hi/code-interview/assets/137023716/692504e8-6a26-4e82-9884-e41f9f170c33)
 
-## 一、是什么
+## 一、BFC
 
 在页面布局的过程中，我们经常会遇到一些奇怪的情况，比如元素的高度消失了、两栏布局无法自适应、元素间距出现异常等等。这些问题往往是由于元素之间相互影响而导致的。在这里，就涉及到了BFC（Block Formatting Context）的概念。
 

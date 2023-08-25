@@ -4,7 +4,6 @@
 
 ![](https://i.imgtg.com/2023/06/21/OW9Rup.png)
 
-
 ## nodejs
 
 - [面试官：说说 Node 文件查找的优先级以及 Require 方法的文件查找策略?](https://github.com/linwu-hi/code-interview/issues/169)
@@ -60,7 +59,7 @@
 - [面试官：说说 React中的setState执行机制](https://github.com/linwu-hi/code-interview/issues/128)
 - [面试官：说说React服务端渲染怎么做？原理是什么？](https://github.com/linwu-hi/code-interview/issues/127)
 - [面试官：说说React render方法的原理？在什么时候会被触发？](https://github.com/linwu-hi/code-interview/issues/126)
-- [说说你对Redux的理解？其工作原理？](https://github.com/linwu-hi/code-interview/issues/125)
+- [面试官：说说你对Redux的理解？其工作原理？](https://github.com/linwu-hi/code-interview/issues/125)
 - [面试官：说说 React 生命周期有哪些不同阶段？每个阶段对应的方法是？](https://github.com/linwu-hi/code-interview/issues/124)
 - [面试官：React中的key有什么作用？](https://github.com/linwu-hi/code-interview/issues/123)
 - [面试官：说说你是如何提高组件的渲染效率的？在React中如何避免不必要的render？](https://github.com/linwu-hi/code-interview/issues/122)
@@ -81,7 +80,7 @@
 - [面试官：说说你对React Router的理解？常用的Router组件有哪些？](https://github.com/linwu-hi/code-interview/issues/107)
 - [面试官：说说React Router有几种模式？实现原理？](https://github.com/linwu-hi/code-interview/issues/106)
 - [面试官：说说对React Hooks的理解？解决了什么问题？](https://github.com/linwu-hi/code-interview/issues/105)
-- [面试官：说说React Jsx转换成真实DOM过程？](https://github.com/linwu-hi/code-interview/issues/104)
+- [面试官：说说React JSX转换成真实DOM过程？](https://github.com/linwu-hi/code-interview/issues/104)
 - [面试官：说说 React 性能优化的手段有哪些？](https://github.com/linwu-hi/code-interview/issues/103)
 - [面试官：说说对高阶组件的理解？应用场景?](https://github.com/linwu-hi/code-interview/issues/102)
 - [面试官：说说对Fiber架构的理解？解决了什么问题？](https://github.com/linwu-hi/code-interview/issues/101)
@@ -174,4 +173,44 @@
 - [面试官：JavaScript修饰器：简化代码，增强功能](https://github.com/linwu-hi/code-interview/issues/26)
 - [面试官：深入理解Proxy](https://github.com/linwu-hi/code-interview/issues/25)
 - [面试官：Date类：日期和时间处理](https://github.com/linwu-hi/code-interview/issues/24)
+
+## Linux
+
+- [面试官：说说 linux 系统下常用的命令有哪些？](https://github.com/linwu-hi/code-interview/issues/23)
+
+## CSS
+
+- [面试官：css选择器有哪些？优先级？哪些属性可以继承？](https://github.com/linwu-hi/code-interview/issues/22)
+- [面试官：如果要做优化，CSS提高性能的方法有哪些？](https://github.com/linwu-hi/code-interview/issues/21)
+- [面试官：元素水平垂直居中的方法有哪些？如果元素不定宽高呢？](https://github.com/linwu-hi/code-interview/issues/11)
+- [面试官：如何实现单行／多行文本溢出的省略样式？](https://github.com/linwu-hi/code-interview/issues/10)
+- [面试官：CSS如何画一个三角形？原理是什么？](https://github.com/linwu-hi/code-interview/issues/9)
+- [面试官：介绍一下grid网格布局](https://github.com/linwu-hi/code-interview/issues/8)
+- [面试官：说说flexbox（弹性盒布局模型）](https://github.com/linwu-hi/code-interview/issues/7)
+- [面试官：深入理解设备像素、CSS像素、设备独立像素、DPR、PPI之间的区别与适配方案](https://github.com/linwu-hi/code-interview/issues/6)
+- [面试官：说说你对盒子模型的理解?](https://github.com/linwu-hi/code-interview/issues/5)
+- [面试官：谈谈你对BFC的理解？](https://github.com/linwu-hi/code-interview/issues/4)
+
+## CSS3
+
+- [面试官：如何实现两栏布局，右侧自适应？三栏布局中间自适应呢？](https://github.com/linwu-hi/code-interview/issues/20)
+- [面试官：css3动画有哪些？](https://github.com/linwu-hi/code-interview/issues/19)
+
+## 小程序
+
+- [ 面试官：说说微信小程序的实现原理？](https://github.com/linwu-hi/code-interview/issues/18)
+- [面试官：说说微信小程序的支付流程？](https://github.com/linwu-hi/code-interview/issues/17)
+- [面试官：说说提高微信小程序的应用速度的手段有哪些？](https://github.com/linwu-hi/code-interview/issues/16)
+- [面试官：说说微信小程序中路由跳转的方式有哪些？区别？](https://github.com/linwu-hi/code-interview/issues/15)
+- [面试官：说说微信小程序的登录流程？](https://github.com/linwu-hi/code-interview/issues/14)
+- [ 面试官：说说微信小程序的生命周期函数有哪些？](https://github.com/linwu-hi/code-interview/issues/13)
+- [面试官：说说你对微信小程序的理解？优缺点？](https://github.com/linwu-hi/code-interview/issues/12)
+
+## 组件库
+
+- [作为面试官，为什么我推荐组件库作为前端面试的亮点？](https://github.com/linwu-hi/code-interview/issues/2)
+
+## git
+
+- [面试官：说说Git常用的命令有哪些？](https://github.com/linwu-hi/code-interview/issues/1)
 

@@ -1,78 +1,95 @@
 const fs = require('fs');
 const path = require('path');
-const { promisify } = require('util');
-const mkdirp = promisify(require('mkdirp'));
 const markdownpdf = require('markdown-pdf');
+const hljs = require('highlight.js');
+const Remarkable = require('remarkable').Remarkable;
+const linkify = require('remarkable/linkify').linkify;
 
 async function mergeMdFilesToPdf(directory, outputFilename) {
-  const directories = fs.readdirSync(directory);
+  const mdContents = [];
+  let prefaceContent = '';
+  const gitHubLink = 'https://www.coding-time.cn'; // GitHub链接
 
-  const subDirectories = directories.filter(item =>
-    fs.lstatSync(path.join(directory, item)).isDirectory()
-  );
+  const processDirectory = (dir) => {
+    const files = fs.readdirSync(dir);
 
-  if (subDirectories.length === 0) {
-    console.log('No subdirectories found in the directory.');
+    files.forEach(file => {
+      const filePath = path.join(dir, file);
+      const stat = fs.statSync(filePath);
+
+      if (stat.isDirectory()) {
+        processDirectory(filePath); // 递归处理子目录
+      } else if (file.endsWith('.md')) {
+        const content = fs.readFileSync(filePath, 'utf8');
+        if (file === '序言.md') {
+          prefaceContent = content;
+        } else {
+          mdContents.push(content);
+        }
+      }
+    });
+  }
+
+  processDirectory(directory);
+
+  if (mdContents.length === 0) {
+    console.log('在目录中未找到Markdown文件.');
     return;
   }
 
+  // 指定代码高亮的主题（例如：'atom-one-dark'）
+  const codeTheme = 'atom-one-dark';
+
+  const md = new Remarkable();
+  md.use(linkify); // 使用remarkable/linkify插件
+
   const pdfOptions = {
-    remarkable: {
-      breaks: true,
-      html: true,
-      xhtmlOut: true,
-      typographer: true,
-      linkify: true,
+    highlight: function (code, lang) {
+      if (lang && hljs.getLanguage(lang)) {
+        try {
+          return hljs.highlight(codeTheme, code).value;
+        } catch (__) {}
+      }
+      return ''; // 使用默认的代码高亮
     },
-    preProcessMd: function (doc) {
-      return doc.replace(/^#/gm, '###');
-    }
+    paperFormat: 'A3',
+    remarkable: md,
+    cssPath: path.join(__dirname, 'custom.css'), // 使用绝对路径指定custom.css文件
   };
 
-  const mergeSubDirMdToPdf = async (subDir, toc) => {
-    const subDirPath = path.join(directory, subDir);
-    const mdFiles = fs.readdirSync(subDirPath).filter(file => file.endsWith('.md'));
-    const mdFilePaths = mdFiles.map(file => path.join(subDirPath, file));
+  const tocMarkdown = generateTableOfContents(mdContents, gitHubLink);
 
-    if (mdFilePaths.length === 0) {
-      console.log(`No markdown files found in ${subDirPath}. Skipping...`);
-      return '';
-    }
-
-    const mergedPdfPath = path.join(subDirPath, `${subDir}.pdf`);
-    try {
-      await markdownpdf(pdfOptions).concat.from(mdFilePaths).to(mergedPdfPath);
-      console.log(`PDF for ${subDir} merged successfully!`);
-
-      return `* [${subDir}](${path.basename(mergedPdfPath)})\n`;
-    } catch (error) {
-      console.error(`Error generating PDF for ${subDir}:`, error);
-      return '';
-    }
-  };
-
-  let toc = '';
-  const currentDirectory = process.cwd(); // 保存当前工作目录
-  for (const subDir of subDirectories) {
-    toc += await mergeSubDirMdToPdf(subDir);
-  }
-
-  process.chdir(currentDirectory); // 恢复工作目录
-
-  const tocPath = path.join(directory, '_toc.md');
   try {
-    await mkdirp(directory); // 创建目录（如果不存在）
-    await fs.promises.writeFile(tocPath, toc);
-
-    const mergedPdfPath = path.join(directory, outputFilename);
-    await markdownpdf(pdfOptions).concat.from(tocPath).to(mergedPdfPath);
-    console.log('All PDFs merged successfully!');
+    // 将包装后的HTML内容转换为PDF
+    const htmlContent = prefaceContent + '\n\n' + tocMarkdown + '\n\n' + mdContents.join('\n\n');
+    markdownpdf(pdfOptions).from.string(htmlContent).to(outputFilename, function () {
+      console.log('PDF生成成功！');
+    });
   } catch (error) {
-    console.error('Error generating final PDF:', error);
-  } finally {
-    fs.unlinkSync(tocPath);
+    console.error('生成PDF时出错：', error);
   }
 }
 
-// Example usage:
-mergeMdFilesToPdf('./docs', 'output.pdf');
+// 生成目录的Markdown内容
+function generateTableOfContents(mdContents, gitHubLink) {
+  const toc = mdContents.map((content, index) => {
+    const title = getTitleFromMarkdown(content);
+    const anchor = slugify(title);
+    return `- [${title}](${gitHubLink}#${anchor})`; // 将链接指向GitHub地址，并在后面添加锚点
+  }).join('\n');
+  return `# 前端面试小册\n\n${toc}\n\n`;
+}
+
+// 从Markdown内容中提取标题
+function getTitleFromMarkdown(content) {
+  const match = content.match(/^# (.+)$/m);
+  return match ? match[1] : 'Untitled';
+}
+
+// 将标题转换为合法的锚点链接
+function slugify(title) {
+  return title.trim().toLowerCase().replace(/\s+/g, '-');
+}
+
+// 示例用法：
+mergeMdFilesToPdf('./docs', '前端面试小册.pdf');

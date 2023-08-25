@@ -8,17 +8,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/linwu-hi/code-interview.git"
+    "url": "git+https://github.com/LQ-vic/code-interview.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/linwu-hi/code-interview/issues"
+    "url": "https://github.com/LQ-vic/code-interview/issues"
   },
-  "homepage": "https://github.com/linwu-hi/code-interview#readme",
+  "homepage": "https://github.com/LQ-vic/code-interview#readme",
   "dependencies": {
+    "@octokit/rest": "^20.0.1",
     "axios": "^1.4.0",
+    "highlight.js": "^11.8.0",
+    "markdown-it": "^13.0.1",
     "markdown-pdf": "^11.0.0",
+    "pdfkit": "^0.13.0",
+    "puppeteer": "^21.0.1",
+    "remarkable": "^2.0.1",
     "sanitize-filename": "^1.6.3"
   }
 }
