@@ -19,12 +19,14 @@
   "dependencies": {
     "@octokit/rest": "^20.0.1",
     "axios": "^1.4.0",
+    "chromedriver": "^116.0.0",
     "highlight.js": "^11.8.0",
     "markdown-it": "^13.0.1",
     "markdown-pdf": "^11.0.0",
     "pdfkit": "^0.13.0",
     "puppeteer": "^21.0.1",
     "remarkable": "^2.0.1",
-    "sanitize-filename": "^1.6.3"
+    "sanitize-filename": "^1.6.3",
+    "selenium-webdriver": "^4.11.1"
   }
 }
